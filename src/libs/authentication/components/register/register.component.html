@@ -1,0 +1,32 @@
+<form [formGroup]="registerForm">
+    <div class="register-container">
+        <div class="login-message">Имате сметка? <p (click)="goToLogin()">Најавете се.<p></div>
+        <div class="create-account">Креирајте сметка</div>
+        <div class="group-99">
+            <div class="rectangle-31">
+                <div class="register" (click)="register()">Регистрирај се</div>
+            </div>
+            <div class="rectangle-28"></div>
+            <div class="rectangle-29"></div>
+            <div class="rectangle-30"></div>
+            <div class="email">        
+                <input formControlName="email" style="background-color: #2C2E2F; width: 250px;" type="text" required>
+            </div>
+            <div class="password">
+                <input formControlName="password" style="background-color: #2C2E2F; width: 230px;" type="password" required>
+            </div>
+            <div class="visibility-off"></div>
+            <div class="https-icon"></div>
+            <div class="mail-icon"></div>
+        </div>
+        <div class="rectangle-32"></div>
+        <div class="name">
+            <input formControlName="name" style="background-color: #2C2E2F; width: 250px;" type="text" required>
+        </div>
+        <div class="account-circle"></div>
+        <div class="check-box"></div>
+        <div class="welcome-message">Добредојдовте!
+            <h3 class="bg-danger mt-3" *ngIf="error">{{error}}</h3>
+        </div>
+    </div>
+</form>

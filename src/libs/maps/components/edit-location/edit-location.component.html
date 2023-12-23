@@ -1,0 +1,54 @@
+<body>
+    <div class="container">
+      <div class="arrow" (click)="goToMap()"></div>
+      <form [formGroup]="editPlaceForm" (ngSubmit)="onSubmit()" class="inside">
+        <div class="mb-3">
+          <label for="name" class="form-label">Име:</label>
+          <input type="text" class="form-control" id="name" formControlName="name" required>
+        </div>
+    
+        <div class="mb-3">
+          <label for="xCoordinate" class="form-label">X-Координата:</label>
+          <input type="number" class="form-control" id="xCoordinate" formControlName="xCoordinate" required min="0">
+        </div>
+    
+        <div class="mb-3">
+          <label for="yCoordinate" class="form-label">Y-Координата:</label>
+          <input type="number" class="form-control" id="yCoordinate" formControlName="yCoordinate" required min="0">
+        </div>
+    
+        <div class="mb-3">
+          <label for="city" class="form-label">Град:</label>
+          <select class="form-select" id="city" formControlName="city" required>
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+          </select>
+        </div>
+    
+        <div class="mb-3">
+          <label for="type" class="form-label">Тип:</label>
+          <select class="form-select" id="type" formControlName="type" required>
+            <option [value]="'history'">Музеј</option>
+            <option [value]="'archaeological_site'">Археолошко наоѓалиште</option>
+          </select>
+        </div>
+    
+        <div class="mb-3">
+          <label for="type" class="form-label">Се наплаќа?</label>
+          <select class="form-select" id="pay" formControlName="type" required>
+            <option [value]="'false'">Да</option>
+            <option [value]="'true'">Не</option>
+          </select>
+        </div>
+    
+        <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Телефонски Број:</label>
+          <input type="number" class="form-control" id="phoneNumber" formControlName="phoneNumber" required min="0">
+        </div>
+    
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    
+    </body>
+    
+    

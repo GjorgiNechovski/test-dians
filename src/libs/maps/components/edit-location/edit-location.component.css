@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url("../../../../assets/map-background.jpg") no-repeat fixed center;
+    background-size: cover;
+  }
+  
+  .container {
+    position: relative;
+    width: 40%;
+    background: #000000;
+    margin: 0 auto;
+    font-family: "Arial", 'Montserrat', sans-serif;
+    color: white;
+    padding-bottom: 50px;
+    border-radius: 20px;
+    box-shadow: 1px 6px 9px 3px #14235F;
+  }
+  
+  .arrow{
+    display: inline-block;
+    position: absolute;
+    background: url("../../../../assets/arrow.png") no-repeat;
+    background-size: 25px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    margin: 25px;
+  }
+  
+  .arrow:hover{
+    opacity: 0.5;
+  }
+  
+  .mb-3{
+    padding: 15px;
+  }
+  
+  label{
+    font-weight: bold;
+  }
+  
+  .inside{
+    margin: 0 60px 0 60px;
+    padding-top: 60px;
+  }
+  
