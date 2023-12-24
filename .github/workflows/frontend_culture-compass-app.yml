@@ -53,4 +53,4 @@ jobs:
           app-name: 'culture-compass-app'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2D96BFB1D29C443DA9CCC15ADB629937 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7CFCA4AB820949BF9FB3D0BF0CE0C501 }}
