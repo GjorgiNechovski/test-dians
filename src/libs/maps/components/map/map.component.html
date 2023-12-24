@@ -1,4 +1,3 @@
-<span *ngIf="apiLoaded | async">
 <div *ngIf="mapLoaded" class="my-google-map" [formGroup]="searchForm">
   <google-map class="map-container" [width]="'100%'" [height]="'100vh'" [options]="mapOptions">
     <map-marker *ngFor="let location of locations"
@@ -87,5 +86,3 @@
   </div>
 
 </div>
-
-</span>
