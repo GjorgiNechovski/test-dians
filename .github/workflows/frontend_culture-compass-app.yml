@@ -23,7 +23,6 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm config set registry http://registry.npmjs.org/
           npm install
           npm run build --if-present
           npm run test --if-present
@@ -60,4 +59,4 @@ jobs:
           app-name: 'culture-compass-app'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9F74F04DF49B4FE792AA2CFB50B7EF3F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CABC93BAA9A24DB19316B6185CE70103 }}
