@@ -6,7 +6,7 @@ export interface Marker {
 }
 
 export class Place {
-  public position: Marker;
+  public position: google.maps.LatLng;
 
   constructor(
     public id: number,
@@ -24,10 +24,7 @@ export class Place {
     public imageUrl: string,
     public reviews: Review[]
   ) {
-    this.position = {
-      lat: xcoordinate,
-      lng: ycoordinate,
-    };
+    this.position = new google.maps.LatLng(xcoordinate, ycoordinate);
   }
 
   calculateAverageRating(): number {
