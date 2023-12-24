@@ -20,6 +20,7 @@ import { NaConvertPipe } from './pipes/na-convert.pipe';
 import { PricePipe } from './pipes/price.pipe';
 import { AddLocationComponent } from './components/add-location/add-location.component';
 import { EditLocationComponent } from './components/edit-location/edit-location.component';
+import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -42,5 +43,6 @@ import { EditLocationComponent } from './components/edit-location/edit-location.
     EffectsModule.forFeature([MapEffects]),
   ],
   exports: [MapComponent, LocationDetailsComponent, LocationsListComponent],
+  providers: [provideHttpClient(withJsonpSupport())],
 })
 export class MapsModule {}
