@@ -3,11 +3,19 @@ import { Place } from '../../models/map.models';
 import { LocationDetailsComponent } from '../location-details/location-details.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  of,
+} from 'rxjs';
 import { PlacesFacade } from '../../state/map-state.facade';
 import { MapDirectionsService } from '@angular/google-maps';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/libs/authentication/services/authentication.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-map',
@@ -15,6 +23,8 @@ import { AuthenticationService } from 'src/libs/authentication/services/authenti
   styleUrls: ['./map.component.css'],
 })
 export default class MapComponent implements OnInit {
+  apiLoaded: Observable<boolean>;
+
   locations: Place[] = [];
   cities: string[] = [];
   mapLoaded: boolean = false;
@@ -47,8 +57,19 @@ export default class MapComponent implements OnInit {
     private placesFacade: PlacesFacade,
     private mapDirectionsService: MapDirectionsService,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    httpClient: HttpClient
   ) {
+    this.apiLoaded = httpClient
+      .jsonp(
+        'https://maps.googleapis.com/maps/api/js?key=AIzaSyA1oO9jfpESXYSJOR6b2UUWAO2szfXc040',
+        'callback'
+      )
+      .pipe(
+        map(() => true),
+        catchError(() => of(false))
+      );
+
     this.placesFacade.getRoute().subscribe((route) => {
       this.request = route;
 
