@@ -30,8 +30,7 @@ export default class MapComponent implements OnInit {
   mapLoaded: boolean = false;
 
   mapOptions: google.maps.MapOptions = {
-    center: { lat: 41.6086, lng: 21.7453 },
-    zoom: 8,
+    center: new google.maps.LatLng(41.6086, 21.7453),
     disableDefaultUI: true,
   };
 
