@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import MapComponent from './components/map/map.component';
-import {
-  GoogleMap,
-  GoogleMapsModule,
-  MapDirectionsRenderer,
-} from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { LocationDetailsComponent } from './components/location-details/location-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
