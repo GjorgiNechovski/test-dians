@@ -1,0 +1,21 @@
+<form [formGroup]="loginForm">
+    <div #loginContainer class="login-container">
+        <div class="registration-message">Немате сметка?
+            <p (click)="goToRegistration()">Регистрирајте се.</p></div>
+        <div class="rectangle-31"></div>
+        <div class="forgot-password">Заборавена лозинка?</div>
+        <div class="login" (click)="login()">Најави се</div>
+        <div class="welcome-message">Добредојдовте назад!</div>
+        <div class="login-message">Најавете се на вашата сметка
+            <h3 class="bg-danger mt-3" *ngIf="error">{{error}}</h3>
+        </div>
+        <div class="rectangle-28"></div>
+        <div class="rectangle-29"></div>
+        <div class="email">
+            <input formControlName="email" style="background-color: #2C2E2F; width: 250px;" type="text" required>
+        </div>
+        <div class="password">
+            <input formControlName="password" style="background-color: #2C2E2F; width: 230px;" type="password" required>
+        </div>
+    </div>
+</form>

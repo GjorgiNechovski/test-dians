@@ -1,0 +1,85 @@
+<div class="container text-center pb-3">
+  <h4 class="mt-3" id="title">{{ place.name }}</h4>
+  <div class="pics">
+    <div (mouseover)="showButtons()" (mouseleave)="hideButtons()" class="image-container">
+        <img src="{{place.imageUrl ? place.imageUrl : 'assets/placeholder.png'}}" alt="Example Image" class="mx-auto d-block image" id="myImage">
+        <div class="buttons" id="myButtons">
+            <button class="warning" (click)="edit()">Направи измени</button>
+            <button class="danger" (click)="delete()">Избриши локација</button>
+        </div>
+    </div>
+</div>
+
+
+  <button class="btn btn-custom" (click)="toggleView('general')" [class.active]="selectedView === 'general'">
+    Детали
+  </button>
+  <button class="btn btn-custom" (click)="toggleView('contact')" [class.active]="selectedView === 'contact'">
+    Оцени
+  </button>
+
+  <ng-container *ngTemplateOutlet="selectedView === 'general' ? generalInfo : contactInfo"></ng-container>
+
+  <button role="button" class="danger" (click)="closeModal()">Close</button>
+</div>
+
+
+
+  <ng-template #generalInfo>
+    <div class="mt-3" *ngIf="place">
+
+      <div class="mb-3">
+        <button type="button" class="warning me-2 " (click)="addOrigin(place)">Додади како почетна локација</button>
+        <button type="button" class="warning" (click)="addDestination(place)">Додади како дестинациска локација</button>
+      </div>
+
+      <div class="details">
+        <p><i class="fa fa-calendar" aria-hidden="true"></i>
+          Отвара: {{ place.openingHours | naConvert }}</p>
+        <p><i class="fa fa-phone" aria-hidden="true"></i>
+          Телефон: {{ place.phoneNumber | naConvert }}</p>
+        <p><i class="fa fa-globe" aria-hidden="true"></i>
+          Страница: {{ place.website | naConvert}}</p>
+        <p><i class="fa fa-ticket" aria-hidden="true"></i>
+          Цена: {{ place.hasEntranceFee | price }}</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #contactInfo>
+    <div *ngIf="place" class="reviews">
+      <ng-container *ngIf="!addingReview; else addReviewForm">
+        <button *ngIf="authService.user !== null" type="button" class="warning" (click)="toggleAddReview()">Постави преглед</button>
+        <div *ngIf="authService.user === null">
+          <p>Треба да бидете најавени за да оставите преглед.</p>
+           <button  type="button" class="warning" (click)="login()">НАЈАВИ СЕ</button>
+        </div>
+      </ng-container>
+      <div style="border: 1px solid gray;" *ngFor="let review of place.reviews" class="review">
+        <p><strong>Comment: </strong>{{ review.comment }}</p>
+        <p><strong>Rating: </strong>{{ review.rating }}</p>
+      </div>
+      <ng-template #addReviewForm>
+        <ng-container *ngIf="selectedView === 'contact'">
+          <form [formGroup]="newReviewForm" (ngSubmit)="submitReview()" #reviewForm="ngForm">
+            <div class="mb-3">
+              <label for="reviewComment" class="form-label">Вашиот коментар:</label>
+              <textarea id="reviewComment" class="form-control" formControlName="comment" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="reviewRating" class="form-label">Вашата оцена:</label>
+              <input type="number" id="reviewRating" class="form-control" formControlName="rating" required>
+            </div>
+            <div>
+              <button type="button" class="danger me-2" (click)="cancelAddReview()">Откажи</button>
+              <button type="submit" class="success">Постави преглед</button>
+            </div>
+          </form>
+        </ng-container>
+      </ng-template>
+      
+    </div>
+    
+    
+  </ng-template>
+  

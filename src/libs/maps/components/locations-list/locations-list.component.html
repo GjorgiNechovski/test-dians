@@ -1,0 +1,81 @@
+<div class="boxShadow">
+  <div class="container">
+    <form class="pt-4" [formGroup]="searchForm">
+      <div class="floating-button">
+        <div class="input-group">
+          <div class="arrow" (click)="goToMap()"></div>
+          <input type="text" class="form-control" placeholder="Search by name" formControlName="search">
+          <button type="button" [ngClass]="{'btn': true, 'btn-dark': !filtersActive, 'btn-warning': filtersActive}" (click)="showFilters()">
+            <i class="fa fa-sliders"></i>
+          </button>
+        </div>
+
+        <div class="button-group" *ngIf="showButtons">
+          <div class="d-flex justify-content-center">
+            <button style="width: 10em;" type="button" class="btn"
+                    [ngClass]="{'btn-dark': selectedFilter !== 'All', 'btn-warning': selectedFilter === 'All'}"
+                    (click)="toggleFilters('All')">All</button>
+
+            <button style="width: 10em;" type="button" class="btn"
+                    [ngClass]="{'btn-dark': selectedFilter !== 'history', 'btn-warning': selectedFilter === 'history'}"
+                    (click)="toggleFilters('history')">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              Museums
+            </button>
+
+            <button style="width: 10em;" type="button" class="btn"
+                    [ngClass]="{'btn-dark': selectedFilter !== 'archaeological_site', 'btn-warning': selectedFilter === 'archaeological_site'}"
+                    (click)="toggleFilters('archaeological_site')">
+              <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              Archeology
+            </button>
+          </div>
+
+          <div class="row">
+            <div class="col" [formGroup]="searchForm">
+              <select class="form-control btn btn-dark text-white" formControlName="fee">
+                <option value="" disabled>Requires fee</option>
+                <option value=""></option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+
+            <div class="col" [formGroup]="searchForm">
+              <select class="form-control btn btn-dark text-white" formControlName="city">
+                <option value="" disabled>Search by city</option>
+                <option [value]=""></option>
+                <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+              </select>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="text-center">
+        <span  *ngIf="places.length > 0; else noLocationsFound">
+          <div class="container card" *ngFor="let place of places" (click)="openLocationDetails(place)">
+            <img style="max-width: 300px; max-height: 200px;" src="{{place.imageUrl ? place.imageUrl : 'assets/placeholder.png'}}" alt="Example Image" class="max-image-size">
+            <p>{{place.name}}</p>
+            <p>Rating: {{place.calculateAverageRating() ?? '0.00'}}</p>
+<!--            <div class="rating">-->
+<!--              <p class="star"></p>-->
+<!--              <p class="star"></p>-->
+<!--              <p class="star"></p>-->
+<!--              <p class="star"></p>-->
+<!--              <p class="star"></p>-->
+<!--            </div>-->
+          </div>
+        </span>
+
+        <ng-template #noLocationsFound>
+          <p class="mt-5">We couldn't find any locations that match your search.</p>
+        </ng-template>
+      </div>
+    </form>
+  </div>
+
+</div>

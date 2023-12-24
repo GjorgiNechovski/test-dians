@@ -1,0 +1,89 @@
+<div *ngIf="mapLoaded" class="my-google-map" [formGroup]="searchForm">
+  <google-map class="map-container" [width]="'100%'" [height]="'100vh'" [options]="mapOptions">
+    <map-marker *ngFor="let location of locations"
+                [clickable]="true"
+                [position]="location.position"
+                [options]="mapOptions"
+                (mapClick)="openLocationDetails(location)">
+    </map-marker>
+    <ng-container *ngIf="(directionsResults$ | async) as directionsResults">
+      <map-directions-renderer *ngIf="directionsResults" [directions]="directionsResults"></map-directions-renderer>
+    </ng-container>
+
+  </google-map>
+
+  <div class="floating-button">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search by name" formControlName="search">
+      <button type="button" [ngClass]="{'btn': true, 'btn-dark': !filtersActive, 'btn-warning': filtersActive}" (click)="showFilters()">
+        <i class="fa fa-sliders"></i>
+      </button>
+    </div>
+
+    <div class="button-group" *ngIf="showButtons">
+      <button style="width: 10em;" type="button" class="btn"
+        [ngClass]="{'btn-dark': selectedFilter !== 'All', 'btn-warning': selectedFilter === 'All'}"
+        (click)="toggleFilters('All')">All</button>
+
+      <button style="width: 10em;" type="button" class="btn"
+        [ngClass]="{'btn-dark': selectedFilter !== 'history', 'btn-warning': selectedFilter === 'history'}"
+        (click)="toggleFilters('history')">
+        <i class="fa fa-university" aria-hidden="true"></i>
+        Museums
+      </button>
+
+      <button style="width: 10em;" type="button" class="btn"
+        [ngClass]="{'btn-dark': selectedFilter !== 'archaeological_site', 'btn-warning': selectedFilter === 'archaeological_site'}"
+        (click)="toggleFilters('archaeological_site')">
+        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+        Archeology
+      </button>
+
+      <div class="row">
+        <div class="col" [formGroup]="searchForm">
+          <select class="form-control btn btn-dark text-white" formControlName="fee">
+            <option value="" disabled>Дали се наплаќа?</option>
+            <option value=""></option>
+            <option value="true">Да</option>
+            <option value="false">Не</option>
+          </select>
+        </div>
+
+        <div class="col" [formGroup]="searchForm">
+          <select class="form-control btn btn-dark text-white" formControlName="city">
+            <option value="" disabled>Филтрирај по град</option>
+            <option [value]=""></option>
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+          </select>
+
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="open">
+    <button class="float-right" (click)="goToLocationList()">
+      Отвори листа на локации
+    </button>
+  </div>
+
+  <div class="open">
+    <button class="float-right-logout" (click)="logout()">
+      Logout
+    </button>
+  </div>
+  
+  <div class="open">
+    <button class="float-left" (click)="goToAddLocation()">
+      Додади локација
+    </button>
+  </div>
+
+  <div class="open">
+    <button class="float-left-login" (click)="login()">
+      Log In
+    </button>
+  </div>
+
+</div>
+
